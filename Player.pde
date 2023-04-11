@@ -20,6 +20,17 @@ class Player extends Sprite {
 
     }
 
+    @Override
+    void display(){
+        fill(200,0,200);
+        ellipse(pos.x, pos.y, size.x, size.y);
+    }
+
+    @Override
+    void handleCollision(){
+        //don't die
+    }
+
     void keyUp() {
         switch(key){
             case 'a': left = false; break;
