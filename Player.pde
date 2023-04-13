@@ -1,4 +1,5 @@
 class Player extends Sprite {
+    boolean alive = true;
 
     boolean left, right, up, down;
     float speed = 1.2;
@@ -28,8 +29,8 @@ class Player extends Sprite {
         if(pos.y < 0 + size.y/2){
             pos.y = size.y/2;
             }
-        if(pos.y > width - size.y/2){
-            pos.y = width - size.y/2;
+        if(pos.y > height - size.y/2){
+            pos.y = height - size.y/2;
         }
 
     }
@@ -42,11 +43,11 @@ class Player extends Sprite {
 
     @Override
     void handleCollision(){
-        //don't die
+       _SM.destroy(this);
+       alive = false;
     }
 
     
-
     void keyUp() {
         switch(key){
             case 'a': left = false; break;
@@ -60,6 +61,7 @@ class Player extends Sprite {
      }       
     }
       void keyDown() {
+        if(alive){
         switch(key) {
             case 'a':
             case 'A': left = true; break;
@@ -69,6 +71,16 @@ class Player extends Sprite {
             case 'D': right = true; break;
             case 'w':
             case 'W': up = true; break;
+            case ' ':
+            case 'f': fire(); break;
+        
         }     
     }
+    }
+
+    void fire() { 
+        PVector aim = new PVector(0, -10);
+        _SM.spawn(new Bullet(pos.x,pos.y ,aim,team));
+    }
+
 }
